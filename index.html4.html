@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تيسير الحاج حسن</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #0a0011;
+      color: #e0d0f0;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: #9b59b6;
+      color: #fff;
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, #7b2dbf, transparent);
+      top: -150px; left: -150px;
+      animation: floatOrb 12s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #4a0080, transparent);
+      bottom: -100px; right: -100px;
+      animation: floatOrb 15s ease-in-out infinite reverse;
+    }
+    .orb-3 {
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, #c084fc, transparent);
+      top: 50%; left: 50%;
+      animation: floatOrb 18s ease-in-out infinite 2s;
+    }
+
+    @keyframes floatOrb {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(60px, -40px) scale(1.1); }
+      66% { transform: translate(-30px, 50px) scale(0.9); }
+    }
+
+    .particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: particleFloat linear infinite;
+    }
+
+    @keyframes particleFloat {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0a0011; }
+    ::-webkit-scrollbar-thumb { background: #4a0080; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7b2dbf; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 18px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.4s ease;
+      direction: ltr;
+    }
+    nav.scrolled {
+      background: rgba(10, 0, 17, 0.85);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 40px rgba(123, 45, 191, 0.15);
+      padding: 12px 50px;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #c084fc, #7b2dbf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: #b89ad0;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      transition: 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, #c084fc, #7b2dbf);
+      transition: 0.3s;
+    }
+    .nav-links a:hover { color: #dcc7f0; }
+    .nav-links a:hover::after { width: 100%; }
+
+    .lang-toggle {
+      background: linear-gradient(135deg, rgba(123, 45, 191, 0.2), rgba(192, 132, 252, 0.1));
+      border: 1px solid rgba(192, 132, 252, 0.25);
+      border-radius: 50px;
+      color: #c084fc;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 8px 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-family: 'Cairo', sans-serif;
+      backdrop-filter: blur(10px);
+    }
+    .lang-toggle:hover {
+      background: linear-gradient(135deg, rgba(123, 45, 191, 0.3), rgba(192, 132, 252, 0.2));
+      border-color: #c084fc;
+    }
+
+    section {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 50px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-subtitle {
+      font-size: 18px;
+      color: #a87dc7;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      font-weight: 600;
+      animation: fadeDown 1s ease forwards;
+      opacity: 0;
+    }
+    .hero-title {
+      font-size: 72px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      animation: fadeUp 1s ease 0.3s forwards;
+      opacity: 0;
+    }
+    .hero-title span {
+      background: linear-gradient(135deg, #e0d0f0, #9b59b6, #7b2dbf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-desc {
+      font-size: 20px;
+      color: #b89ad0;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      animation: fadeUp 1s ease 0.6s forwards;
+      opacity: 0;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 12px 32px;
+      background: linear-gradient(135deg, rgba(123, 45, 191, 0.2), rgba(192, 132, 252, 0.1));
+      border: 1px solid rgba(192, 132, 252, 0.25);
+      border-radius: 50px;
+      color: #c084fc;
+      font-weight: 700;
+      font-size: 16px;
+      animation: fadeUp 1s ease 0.9s forwards;
+      opacity: 0;
+      backdrop-filter: blur(10px);
+    }
+    .hero-badge i {
+      display: inline-block;
+      margin-left: 8px;
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounceDown 2s ease infinite;
+      color: #7b2dbf;
+      font-size: 20px;
+    }
+
+    .section-label {
+      font-size: 14px;
+      color: #7b2dbf;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 42px;
+      font-weight: 900;
+      margin-bottom: 40px;
+      color: #f0e6ff;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-text p {
+      font-size: 18px;
+      line-height: 2;
+      color: #c4b0d8;
+      margin-bottom: 20px;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .stat-card {
+      background: linear-gradient(135deg, rgba(123, 45, 191, 0.1), rgba(74, 0, 128, 0.15));
+      border: 1px solid rgba(123, 45, 191, 0.2);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+      transition: 0.4s ease;
+      backdrop-filter: blur(10px);
+    }
+    .stat-card:hover {
+      border-color: #7b2dbf;
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(123, 45, 191, 0.15);
+    }
+    .stat-number {
+      font-size: 36px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #c084fc, #7b2dbf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label {
+      font-size: 14px;
+      color: #a87dc7;
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    .timeline {
+      position: relative;
+      padding-right: 40px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      right: 14px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #7b2dbf, #c084fc, transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding-right: 40px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 8px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #c084fc, #7b2dbf);
+      border: 3px solid #0a0011;
+      box-shadow: 0 0 20px rgba(123, 45, 191, 0.4);
+    }
+    .timeline-date {
+      font-size: 14px;
+      color: #7b2dbf;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .timeline-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #f0e6ff;
+      margin-bottom: 6px;
+    }
+    .timeline-sub {
+      font-size: 16px;
+      color: #c084fc;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .timeline-desc {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #b89ad0;
+    }
+
+    .master-banner {
+      margin-top: 40px;
+      background: linear-gradient(135deg, rgba(123, 45, 191, 0.15), rgba(192, 132, 252, 0.05));
+      border: 1px solid rgba(192, 132, 252, 0.2);
+      border-radius: 20px;
+      padding: 36px 40px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+    .master-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: conic-gradient(from 0deg, transparent, rgba(123, 45, 191, 0.05), transparent, rgba(192, 132, 252, 0.05), transparent);
+      animation: spinBanner 10s linear infinite;
+    }
+    @keyframes spinBanner {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .master-banner h3 {
+      position: relative;
+      z-index: 1;
+      font-size: 28px;
+      font-weight: 900;
+      color: #f0e6ff;
+      margin-bottom: 8px;
+    }
+    .master-banner p {
+      position: relative;
+      z-index: 1;
+      font-size: 18px;
+      color: #c084fc;
+      font-weight: 600;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .skill-card {
+      background: linear-gradient(135deg, rgba(123, 45, 191, 0.08), rgba(74, 0, 128, 0.1));
+      border: 1px solid rgba(123, 45, 191, 0.15);
+      border-radius: 14px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: 0.4s ease;
+    }
+    .skill-card:hover {
+      border-color: #7b2dbf;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(123, 45, 191, 0.12);
+    }
+    .skill-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .skill-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #f0e6ff;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .contact-card {
+      background: linear-gradient(135deg, rgba(123, 45, 191, 0.08), rgba(74, 0, 128, 0.1));
+      border: 1px solid rgba(123, 45, 191, 0.15);
+      border-radius: 14px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: 0.4s ease;
+      text-decoration: none;
+      display: block;
+    }
+    .contact-card:hover {
+      border-color: #7b2dbf;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(123, 45, 191, 0.12);
+    }
+    .contact-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .contact-label {
+      font-size: 14px;
+      color: #a87dc7;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .contact-value {
+      font-size: 16px;
+      color: #f0e6ff;
+      font-weight: 700;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 30px 50px;
+      color: #6a5280;
+      font-size: 14px;
+      border-top: 1px solid rgba(123, 45, 191, 0.1);
+    }
+
+    .hidden { opacity: 0; transform: translateY(50px); transition: 0.8s ease; }
+    .visible { opacity: 1; transform: translateY(0); }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounceDown {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 15px 20px; flex-direction: column; gap: 12px; }
+      .nav-links { gap: 16px; flex-wrap: wrap; justify-content: center; }
+      .hero-title { font-size: 40px; }
+      section { padding: 80px 20px; }
+      .about-grid { grid-template-columns: 1fr; gap: 30px; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .hero-desc { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="particles" id="particles"></div>
+
+  <nav id="navbar">
+    <a href="#hero" class="logo" data-i18n="logo">تيسير الحاج حسن</a>
+    <ul class="nav-links">
+      <li><a href="#about" data-i18n="nav.about">نبذة</a></li>
+      <li><a href="#experience" data-i18n="nav.experience">الخبرات</a></li>
+      <li><a href="#education" data-i18n="nav.education">التعليم</a></li>
+      <li><a href="#skills" data-i18n="nav.skills">المهارات</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">تواصل</a></li>
+    </ul>
+    <button class="lang-toggle" id="langToggle" data-i18n="lang.btn">English</button>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-content">
+      <p class="hero-subtitle" data-i18n="hero.subtitle">مرحباً بكم في موقعي الشخصي</p>
+      <h1 class="hero-title"><span data-i18n="hero.title.pre">أنا </span><span data-i18n="hero.title.name">تيسير الحاج حسن</span></h1>
+      <p class="hero-desc" data-i18n="hero.desc">
+        شغوف بالتعليم والتطوير، أؤمن بأن المعرفة هي أساس التغيير الحقيقي.
+        مدرس، مترجم، كاتب محتوى، وطالب علم دائم.
+      </p>
+      <div class="hero-badge" data-i18n="hero.badge">
+        طالب ماجستير حالياً
+      </div>
+    </div>
+    <div class="scroll-indicator">⬇</div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <p class="section-label hidden" data-i18n="about.label">نبذة</p>
+      <h2 class="section-title hidden" data-i18n="about.title">من أنا</h2>
+      <div class="about-grid">
+        <div class="about-text hidden">
+          <p data-i18n="about.p1">
+            تيسير الحاج حسن، مدرس ومربي شغوف بتوصيل المعرفة بأسلوب عصري وممتع.
+            أمتلك خبرة تمتد لـ 3 سنوات في مجال التدريس، إضافة إلى خبرات متنوعة
+            في الترجمة والكتابة وإدارة المحتوى التعليمي.
+          </p>
+          <p data-i18n="about.p2">
+            أؤمن بأن التعليم ليس مجرد نقل معلومات، بل هو بناء شخصية وإطلاق إمكانيات.
+            أسعى حالياً لتطوير ذاتي من خلال دراسة الماجستير، وأعمل على دمج التكنولوجيا
+            الحديثة في العملية التعليمية لتقديم تجربة تعلم استثنائية.
+          </p>
+        </div>
+        <div class="about-stats hidden">
+          <div class="stat-card">
+            <div class="stat-number">3+</div>
+            <div class="stat-label" data-i18n="about.stat1">سنوات تدريس</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-i18n="about.stat2.num">ماجستير</div>
+            <div class="stat-label" data-i18n="about.stat2.label">يدرس حالياً</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">✏️</div>
+            <div class="stat-label" data-i18n="about.stat3">كاتب &amp; مترجم</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">∞</div>
+            <div class="stat-label" data-i18n="about.stat4">حب التعلم</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <p class="section-label hidden" data-i18n="exp.label">الخبرات</p>
+      <h2 class="section-title hidden" data-i18n="exp.title">مسيرتي المهنية</h2>
+      <div class="timeline hidden">
+
+        <div class="timeline-item">
+          <div class="timeline-date" data-i18n="exp.item1.date">2022 - 2025</div>
+          <div class="timeline-title" data-i18n="exp.item1.title">مدرس</div>
+          <div class="timeline-sub" data-i18n="exp.item1.sub">٣ سنوات من الخبرة في التدريس</div>
+          <div class="timeline-desc" data-i18n="exp.item1.desc">
+            تدريس الطلاب بأحدث الأساليب التعليمية التفاعلية، تطوير مناهج دراسية
+            مبتكرة، تصميم أنشطة تعليمية تحفز على الإبداع والتفكير النقدي،
+            ومتابعة تقدم الطلاب بشكل فردي لضمان أفضل النتائج.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date" data-i18n="exp.item2.date">2023 - 2025</div>
+          <div class="timeline-title" data-i18n="exp.item2.title">كاتب محتوى تعليمي</div>
+          <div class="timeline-sub" data-i18n="exp.item2.sub">إعداد المحتوى والمقالات</div>
+          <div class="timeline-desc" data-i18n="exp.item2.desc">
+            كتابة وتحرير محتوى تعليمي هادف، إعداد مقالات متخصصة في مجال التربية
+            والتعليم، وصياغة أدلة تعليمية مبسطة تناسب مختلف الفئات العمرية.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date" data-i18n="exp.item3.date">2023 - 2025</div>
+          <div class="timeline-title" data-i18n="exp.item3.title">مترجم</div>
+          <div class="timeline-sub" data-i18n="exp.item3.sub">ترجمة أكاديمية وتعليمية</div>
+          <div class="timeline-desc" data-i18n="exp.item3.desc">
+            ترجمة النصوص الأكاديمية والمواد التعليمية من وإلى اللغة العربية،
+            مع الحفاظ على الدقة العلمية والسلامة اللغوية. ترجمة أوراق بحثية
+            ومقالات متخصصة في مجالات التربية والعلوم الإنسانية.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date" data-i18n="exp.item4.date">2024 - 2025</div>
+          <div class="timeline-title" data-i18n="exp.item4.title">مستشار تعليمي</div>
+          <div class="timeline-sub" data-i18n="exp.item4.sub">استشارات وتوجيه تربوي</div>
+          <div class="timeline-desc" data-i18n="exp.item4.desc">
+            تقديم استشارات تربوية للطلاب وأولياء الأمور، توجيه أكاديمي ومهني،
+            والمساعدة في وضع خطط تعليمية فردية تناسب احتياجات كل متعلم.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date" data-i18n="exp.item5.date">حالياً</div>
+          <div class="timeline-title" data-i18n="exp.item5.title">طالب ماجستير</div>
+          <div class="timeline-sub" data-i18n="exp.item5.sub">الدراسات العليا</div>
+          <div class="timeline-desc" data-i18n="exp.item5.desc">
+            أدرس درجة الماجستير لأوسع مداركي العلمية وأطور مهاراتي الأكاديمية،
+            مع التركيز على دمج الابتكار والتكنولوجيا في التعليم.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="container">
+      <p class="section-label hidden" data-i18n="edu.label">التعليم</p>
+      <h2 class="section-title hidden" data-i18n="edu.title">المؤهلات العلمية</h2>
+      <div class="timeline hidden">
+        <div class="timeline-item">
+          <div class="timeline-date" data-i18n="edu.item1.date">حالياً</div>
+          <div class="timeline-title" data-i18n="edu.item1.title">ماجستير</div>
+          <div class="timeline-sub" data-i18n="edu.item1.sub">قيد الدراسة</div>
+          <div class="timeline-desc" data-i18n="edu.item1.desc">
+            أتابع دراستي العليا في مرحلة الماجستير، وأركز في أبحاثي على
+            تطوير أساليب التعليم الحديثة ودمج التكنولوجيا في العملية التعليمية.
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">–</div>
+          <div class="timeline-title" data-i18n="edu.item2.title">بكالوريوس</div>
+          <div class="timeline-sub" data-i18n="edu.item2.sub">شهادة جامعية</div>
+          <div class="timeline-desc" data-i18n="edu.item2.desc">
+            حاصل على درجة البكالوريوس التي شكلت الأساس العلمي القوي
+            لمسيرتي المهنية في مجال التعليم والتدريس.
+          </div>
+        </div>
+      </div>
+
+      <div class="master-banner hidden">
+        <h3 data-i18n="edu.banner.title">📚 يدرس الماجستير حالياً</h3>
+        <p data-i18n="edu.banner.sub">في رحلة مستمرة نحو العلم والمعرفة</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <p class="section-label hidden" data-i18n="skills.label">المهارات</p>
+      <h2 class="section-title hidden" data-i18n="skills.title">ما أتقنه</h2>
+      <div class="skills-grid hidden">
+        <div class="skill-card"><div class="skill-icon">📖</div><div class="skill-name" data-i18n="skills.item1">التدريس</div></div>
+        <div class="skill-card"><div class="skill-icon">🧠</div><div class="skill-name" data-i18n="skills.item2">التفكير النقدي</div></div>
+        <div class="skill-card"><div class="skill-icon">💬</div><div class="skill-name" data-i18n="skills.item3">التواصل</div></div>
+        <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-name" data-i18n="skills.item4">تطوير المناهج</div></div>
+        <div class="skill-card"><div class="skill-icon">🤝</div><div class="skill-name" data-i18n="skills.item5">العمل الجماعي</div></div>
+        <div class="skill-card"><div class="skill-icon">💡</div><div class="skill-name" data-i18n="skills.item6">الإبداع</div></div>
+        <div class="skill-card"><div class="skill-icon">🗣️</div><div class="skill-name" data-i18n="skills.item7">الإلقاء</div></div>
+        <div class="skill-card"><div class="skill-icon">📝</div><div class="skill-name" data-i18n="skills.item8">التدقيق اللغوي</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <p class="section-label hidden" data-i18n="contact.label">تواصل</p>
+      <h2 class="section-title hidden" data-i18n="contact.title">ابق على تواصل</h2>
+      <div class="contact-grid hidden">
+        <a href="mailto:taysir@example.com" class="contact-card">
+          <div class="contact-icon">📧</div>
+          <div class="contact-label" data-i18n="contact.email.label">البريد الإلكتروني</div>
+          <div class="contact-value">taiseeralselawy@gmail.com</div>
+        </a>
+        <a href="tel:+970000000000" class="contact-card">
+          <div class="contact-icon">📞</div>
+          <div class="contact-label" data-i18n="contact.phone.label">الهاتف</div>
+          <div class="contact-value"> 0796807924</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p data-i18n="footer">&copy; 2026 تيسير الحاج حسن — جميع الحقوق محفوظة</p>
+  </footer>
+
+  <script>
+    const translations = {
+      ar: {
+        logo: 'تيسير الحاج حسن',
+        'lang.btn': 'English',
+        'nav.about': 'نبذة',
+        'nav.experience': 'الخبرات',
+        'nav.education': 'التعليم',
+        'nav.skills': 'المهارات',
+        'nav.contact': 'تواصل',
+        'hero.subtitle': 'مرحباً بكم في موقعي الشخصي',
+        'hero.title.pre': 'أنا ',
+        'hero.title.name': 'تيسير الحاج حسن',
+        'hero.desc': 'شغوف بالتعليم والتطوير، أؤمن بأن المعرفة هي أساس التغيير الحقيقي.\n        مدرس، مترجم، كاتب محتوى، وطالب علم دائم.',
+        'hero.badge': 'طالب ماجستير حالياً',
+        'about.label': 'نبذة',
+        'about.title': 'من أنا',
+        'about.p1': 'تيسير الحاج حسن، مدرس ومربي شغوف بتوصيل المعرفة بأسلوب عصري وممتع.\n            أمتلك خبرة تمتد لـ 3 سنوات في مجال التدريس، إضافة إلى خبرات متنوعة\n            في الترجمة والكتابة وإدارة المحتوى التعليمي.',
+        'about.p2': 'أؤمن بأن التعليم ليس مجرد نقل معلومات، بل هو بناء شخصية وإطلاق إمكانيات.\n            أسعى حالياً لتطوير ذاتي من خلال دراسة الماجستير، وأعمل على دمج التكنولوجيا\n            الحديثة في العملية التعليمية لتقديم تجربة تعلم استثنائية.',
+        'about.stat1': 'سنوات تدريس',
+        'about.stat2.num': 'ماجستير',
+        'about.stat2.label': 'يدرس حالياً',
+        'about.stat3': 'كاتب & مترجم',
+        'about.stat4': 'حب التعلم',
+        'exp.label': 'الخبرات',
+        'exp.title': 'مسيرتي المهنية',
+        'exp.item1.date': '2022 - 2025',
+        'exp.item1.title': 'مدرس',
+        'exp.item1.sub': '٣ سنوات من الخبرة في التدريس',
+        'exp.item1.desc': 'تدريس الطلاب بأحدث الأساليب التعليمية التفاعلية، تطوير مناهج دراسية\n            مبتكرة، تصميم أنشطة تعليمية تحفز على الإبداع والتفكير النقدي،\n            ومتابعة تقدم الطلاب بشكل فردي لضمان أفضل النتائج.',
+        'exp.item2.date': '2023 - 2025',
+        'exp.item2.title': 'كاتب محتوى تعليمي',
+        'exp.item2.sub': 'إعداد المحتوى والمقالات',
+        'exp.item2.desc': 'كتابة وتحرير محتوى تعليمي هادف، إعداد مقالات متخصصة في مجال التربية\n            والتعليم، وصياغة أدلة تعليمية مبسطة تناسب مختلف الفئات العمرية.',
+        'exp.item3.date': '2023 - 2025',
+        'exp.item3.title': 'مترجم',
+        'exp.item3.sub': 'ترجمة أكاديمية وتعليمية',
+        'exp.item3.desc': 'ترجمة النصوص الأكاديمية والمواد التعليمية من وإلى اللغة العربية،\n            مع الحفاظ على الدقة العلمية والسلامة اللغوية. ترجمة أوراق بحثية\n            ومقالات متخصصة في مجالات التربية والعلوم الإنسانية.',
+        'exp.item4.date': '2024 - 2025',
+        'exp.item4.title': 'مستشار تعليمي',
+        'exp.item4.sub': 'استشارات وتوجيه تربوي',
+        'exp.item4.desc': 'تقديم استشارات تربوية للطلاب وأولياء الأمور، توجيه أكاديمي ومهني،\n            والمساعدة في وضع خطط تعليمية فردية تناسب احتياجات كل متعلم.',
+        'exp.item5.date': 'حالياً',
+        'exp.item5.title': 'طالب ماجستير',
+        'exp.item5.sub': 'الدراسات العليا',
+        'exp.item5.desc': 'أدرس درجة الماجستير لأوسع مداركي العلمية وأطور مهاراتي الأكاديمية،\n            مع التركيز على دمج الابتكار والتكنولوجيا في التعليم.',
+        'edu.label': 'التعليم',
+        'edu.title': 'المؤهلات العلمية',
+        'edu.item1.date': 'حالياً',
+        'edu.item1.title': 'ماجستير',
+        'edu.item1.sub': 'قيد الدراسة',
+        'edu.item1.desc': 'أتابع دراستي العليا في مرحلة الماجستير، وأركز في أبحاثي على\n            تطوير أساليب التعليم الحديثة ودمج التكنولوجيا في العملية التعليمية.',
+        'edu.item2.title': 'بكالوريوس',
+        'edu.item2.sub': 'شهادة جامعية',
+        'edu.item2.desc': 'حاصل على درجة البكالوريوس التي شكلت الأساس العلمي القوي\n            لمسيرتي المهنية في مجال التعليم والتدريس.',
+        'edu.banner.title': '📚 يدرس الماجستير حالياً',
+        'edu.banner.sub': 'في رحلة مستمرة نحو العلم والمعرفة',
+        'skills.label': 'المهارات',
+        'skills.title': 'ما أتقنه',
+        'skills.item1': 'التدريس',
+        'skills.item2': 'التفكير النقدي',
+        'skills.item3': 'التواصل',
+        'skills.item4': 'تطوير المناهج',
+        'skills.item5': 'العمل الجماعي',
+        'skills.item6': 'الإبداع',
+        'skills.item7': 'الإلقاء',
+        'skills.item8': 'التدقيق اللغوي',
+        'contact.label': 'تواصل',
+        'contact.title': 'ابق على تواصل',
+        'contact.email.label': 'البريد الإلكتروني',
+        'contact.phone.label': 'الهاتف',
+        footer: '\u00a9 2026 تيسير الحاج حسن — جميع الحقوق محفوظة',
+      },
+      en: {
+        logo: 'Taysir Al-Hajj Hassan',
+        'lang.btn': 'العربية',
+        'nav.about': 'About',
+        'nav.experience': 'Experience',
+        'nav.education': 'Education',
+        'nav.skills': 'Skills',
+        'nav.contact': 'Contact',
+        'hero.subtitle': 'Welcome to My Personal Website',
+        'hero.title.pre': 'I\'m ',
+        'hero.title.name': 'Taysir Al-Hajj Hassan',
+        'hero.desc': 'Passionate about education and development, I believe knowledge is the foundation of real change. A teacher, translator, content writer, and lifelong learner.',
+        'hero.badge': 'Currently a Master\'s Student',
+        'about.label': 'About',
+        'about.title': 'Who I Am',
+        'about.p1': 'Taysir Al-Hajj Hassan, a passionate educator dedicated to delivering knowledge in a modern and engaging style. I have over 3 years of teaching experience, along with diverse experience in translation, writing, and educational content management.',
+        'about.p2': 'I believe education is not just about transferring information — it is about building character and unlocking potential. I am currently pursuing my Master\'s degree and working to integrate modern technology into education to provide an exceptional learning experience.',
+        'about.stat1': 'Years Teaching',
+        'about.stat2.num': 'Master\'s',
+        'about.stat2.label': 'Currently Studying',
+        'about.stat3': 'Writer & Translator',
+        'about.stat4': 'Love of Learning',
+        'exp.label': 'Experience',
+        'exp.title': 'My Career Journey',
+        'exp.item1.date': '2022 - 2025',
+        'exp.item1.title': 'Teacher',
+        'exp.item1.sub': '3 Years of Teaching Experience',
+        'exp.item1.desc': 'Teaching students using the latest interactive educational methods, developing innovative curricula, designing educational activities that stimulate creativity and critical thinking, and following up on students\' progress individually to ensure the best results.',
+        'exp.item2.date': '2023 - 2025',
+        'exp.item2.title': 'Educational Content Writer',
+        'exp.item2.sub': 'Content and Article Preparation',
+        'exp.item2.desc': 'Writing and editing meaningful educational content, preparing specialized articles in the field of education, and crafting simplified educational guides suitable for different age groups.',
+        'exp.item3.date': '2023 - 2025',
+        'exp.item3.title': 'Translator',
+        'exp.item3.sub': 'Academic and Educational Translation',
+        'exp.item3.desc': 'Translating academic texts and educational materials to and from Arabic, maintaining scientific accuracy and linguistic integrity. Translation of research papers and specialized articles in education and humanities.',
+        'exp.item4.date': '2024 - 2025',
+        'exp.item4.title': 'Educational Consultant',
+        'exp.item4.sub': 'Consultation and Educational Guidance',
+        'exp.item4.desc': 'Providing educational consultations to students and parents, academic and career guidance, and helping develop individualized educational plans that suit each learner\'s needs.',
+        'exp.item5.date': 'Present',
+        'exp.item5.title': 'Master\'s Student',
+        'exp.item5.sub': 'Postgraduate Studies',
+        'exp.item5.desc': 'Studying for a Master\'s degree to broaden my scientific horizons and develop my academic skills, with a focus on integrating innovation and technology in education.',
+        'edu.label': 'Education',
+        'edu.title': 'Qualifications',
+        'edu.item1.date': 'Present',
+        'edu.item1.title': 'Master\'s Degree',
+        'edu.item1.sub': 'In Progress',
+        'edu.item1.desc': 'I am pursuing my postgraduate studies at the Master\'s level, focusing my research on developing modern teaching methods and integrating technology into the educational process.',
+        'edu.item2.title': 'Bachelor\'s Degree',
+        'edu.item2.sub': 'University Degree',
+        'edu.item2.desc': 'Holds a Bachelor\'s degree that formed a strong scientific foundation for my professional career in education and teaching.',
+        'edu.banner.title': '📚 Currently Pursuing a Master\'s',
+        'edu.banner.sub': 'On a continuous journey toward knowledge',
+        'skills.label': 'Skills',
+        'skills.title': 'What I Master',
+        'skills.item1': 'Teaching',
+        'skills.item2': 'Critical Thinking',
+        'skills.item3': 'Communication',
+        'skills.item4': 'Curriculum Development',
+        'skills.item5': 'Teamwork',
+        'skills.item6': 'Creativity',
+        'skills.item7': 'Public Speaking',
+        'skills.item8': 'Proofreading',
+        'contact.label': 'Contact',
+        'contact.title': 'Stay in Touch',
+        'contact.email.label': 'Email',
+        'contact.phone.label': 'Phone',
+        footer: '\u00a9 2026 Taysir Al-Hajj Hassan — All Rights Reserved',
+      }
+    };
+
+    let currentLang = 'ar';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key] !== undefined) {
+          el.textContent = t[key];
+        }
+      });
+
+      document.getElementById('langToggle').textContent = t['lang.btn'];
+    }
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+      setLanguage(currentLang === 'ar' ? 'en' : 'ar');
+    });
+
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 50; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      const size = Math.random() * 4 + 2;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      const colors = ['#b366ff', '#7b2dbf', '#c084fc', '#9b59b6', '#d8b4fe'];
+      p.style.background = colors[Math.floor(Math.random() * colors.length)];
+      p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      particlesContainer.appendChild(p);
+    }
+
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>www
